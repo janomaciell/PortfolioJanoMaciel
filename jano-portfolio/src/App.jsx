@@ -6,6 +6,8 @@ import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import './App.css';
 import SlideYouCan from '../components/SlideYouCan';
+import Footer from '../components/Footer';
+import Jobs from '../components/Jobs';
 
 function App() {
   return (
@@ -14,9 +16,10 @@ function App() {
       <About />
       <SlideYouCan />
       <Skills />
+      <Jobs />
       <Contact />
       <Projects />
-
+      <Footer />
     </div>
   );
 }

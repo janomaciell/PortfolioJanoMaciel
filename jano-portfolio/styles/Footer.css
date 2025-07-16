@@ -1,0 +1,89 @@
+:root {
+  --color-black: #000;
+  --color-dark: #131313;
+  --color-light: #efeeec;
+  --color-primary: #ff4c24;
+}
+
+body {
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  line-height: 1;
+  background-color: var(--color-black);
+  color: var(--color-light);
+  font-size: 1vw;
+}
+
+a,
+button {
+  /* sin estilos de cursor */
+}
+
+.cloneable {
+    background-color: #000;
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
+  display: flex;
+  position: relative;
+}
+
+.paragraph {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: PP Neue Corp Wide, Arial, sans-serif;
+  font-size: 7.5vw;
+  font-weight: 800;
+}
+
+.is--orange {
+  color: #ff4c24;
+}
+
+.osmo-credits {
+  z-index: 999;
+  pointer-events: none;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 4em;
+  padding: 1em;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.osmo-credits__p {
+  pointer-events: auto;
+  color: #efeeec80;
+  text-align: center;
+  margin: 0;
+  font-family: PP Neue Montreal, Arial, sans-serif;
+  font-size: 1.125em;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.osmo-credits__p-a {
+  color: #efeeec;
+}
+
+@font-face {
+  font-family: 'PP Neue Corp Wide';
+  src: url('https://cdn.prod.website-files.com/677bbc35cf0d3d98b00ca2e9/677bbe406f398e7235349787_67696d7d82c1108af427575c_PPNeueCorp-WideUltrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+} 
