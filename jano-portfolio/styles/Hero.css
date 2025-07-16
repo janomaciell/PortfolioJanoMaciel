@@ -5,6 +5,7 @@
     align-content: stretch;
     align-items: stretch;
     flex-wrap: wrap;
+    background-color: black;
   }
   
   .letter {
@@ -135,6 +136,8 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-color: black;
+
 }
 
 .container.grid, .container.columns {

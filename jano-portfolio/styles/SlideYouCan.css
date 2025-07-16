@@ -13,6 +13,7 @@
   width: 280px;
   font-family: 'Geist', sans-serif;
   font-size: 0.875rem;
+  
 }
 
 .control-panel details summary {
@@ -35,6 +36,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  
 }
 
 .control-group label {
@@ -65,10 +67,10 @@
 
 /* Base Styles */
 :root {
-  --font-size-min: 14;
-  --font-size-max: 20;
-  --font-ratio-min: 1.1;
-  --font-ratio-max: 1.33;
+  --font-size-min: 32;
+  --font-size-max: 60;
+  --font-ratio-min: 1.15;
+  --font-ratio-max: 1.25;
   --font-width-min: 375;
   --font-width-max: 1500;
   --start: 50vh;
@@ -108,6 +110,7 @@ html {
 body {
   place-items: center;
   background: light-dark(white, black);
+  
   font-family: 'Geist', 'SF Pro Text', 'SF Pro Icons', 'AOS Icons',
     'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
   margin: 0;
@@ -137,7 +140,7 @@ body::before {
 }
 
 /* Fluid Typography */
-:where(.fluid) {
+:where(.fluid-slice) {
   --fluid-min: calc(
     var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0))
   );
@@ -169,6 +172,25 @@ header {
   align-items: start;
   width: 100%;
   margin-bottom: var(--space);
+}
+
+header, .content-slide h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1.1;
+}
+
+.content-slide ul {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+}
+
+@media (max-width: 600px) {
+  header, .content-slide h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+  .content-slide ul {
+    font-size: clamp(1.1rem, 5vw, 1.7rem);
+  }
 }
 
 li {
