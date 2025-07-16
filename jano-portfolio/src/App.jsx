@@ -17,8 +17,8 @@ function App() {
       <SlideYouCan />
       <Skills />
       <Jobs />
-      <Contact />
       <Projects />
+      <Contact />
       <Footer />
     </div>
   );

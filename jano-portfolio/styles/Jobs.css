@@ -18,23 +18,22 @@ body {
 
 body {
   font-family: "PP Neue Montreal", sans-serif;
-  background-color: #131211;
   color: #f0ede8;
   padding: 1rem;
 }
 
 .projects-component {
-  padding-top: 5rem ;
-  padding-bottom: 5rem;
-  max-width: 1200px;
+  padding-top: 8rem ;
   margin: 0 auto;
-  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+  
+
 }
 
 .projects-list {
+  padding-bottom: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,14 +149,19 @@ body {
 .detail-year {
   margin-top: 0.5rem;
 }
-
-.project-image {
-  width: 40%;
-  max-width: 400px;
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4/3;
+.project-image img {
+  transition: transform 0.3s ease;
 }
+
+.project-image img:hover {
+  transform: scale(1.05);
+}
+
+.project-image img[style*="cursor: pointer"]:hover {
+  filter: brightness(1.1);
+}
+
+
 
 .image-wrapper {
   position: relative;

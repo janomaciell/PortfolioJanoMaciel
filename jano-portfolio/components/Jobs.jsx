@@ -8,41 +8,47 @@ import CARDQR from '../img/CARD-QR.png';
 import MENUAR from '../img/MENUAR.png';
 
 const projects = [
-    {
-      title: 'CRIPTOMIX',
-      left: ['PLATAFORMA DE INVERSIONES', 'INNOVACIÓN BLOCKCHAIN', 'AUTOMATIZACIÓN DE CRIPTOMONEDAS'],
-      right: ['TRADING INTELIGENTE', 'GESTIÓN DE CARTERAS', 'DISEÑO MODERNO'],
-      img: CRIPTOMIX,
-      alt: 'Criptomix plataforma de criptomonedas',
-    },
-    {
-      title: 'ENCUÉNTRAME',
-      left: ['COLLARES INTELIGENTES', 'QR PARA MASCOTAS', 'NOTIFICACIONES EN TIEMPO REAL'],
-      right: ['GEOLOCALIZACIÓN', 'MAPA DE ESCANEOS', 'REUNIÓN FAMILIAR ASEGURADA'],
-      img: CARDQR,
-      alt: 'Encuéntrame QR para mascotas',
-    },
-    {
-      title: 'PORTFOLIO COMMUNITY MANAGER',
-      left: ['ESTRATEGIA DIGITAL', 'PRESENTACIÓN VISUAL', 'GESTIÓN DE MARCA'],
-      right: ['REDES SOCIALES', 'CASOS DE ÉXITO', 'OPTIMIZACIÓN DE CONTENIDO'],
-      img: CM,
-      alt: 'Portfolio community manager',
-    },
-    {
-      title: 'AGENCIA DE MARKETING SHALOM',
-      left: ['BRANDING', 'CAMPAÑAS DIGITALES', 'MARKETING DE CONTENIDO'],
-      right: ['FOTOGRAFÍA Y DISEÑO', 'GESTIÓN DE REDES', 'WEB & LANDING PAGES'],
-      img: SHALOM,
-      alt: 'Agencia Shalom marketing',
-    },
-    {
-      title: 'MENÚ AR PARA RESTAURANTES',
-      left: ['REALIDAD AUMENTADA', 'INTERACCIÓN 3D', 'NAVEGACIÓN INMERSIVA'],
-      right: ['EXPERIENCIA DEL USUARIO', 'MENÚ INTERACTIVO', 'INNOVACIÓN GASTRONÓMICA'],
-      img: MENUAR,
-      alt: 'Menú de restaurantes con AR',
-    },
+  {
+    title: 'CRIPTOMIX',
+    left: ['PLATAFORMA DE INVERSIONES', 'INNOVACIÓN BLOCKCHAIN', 'AUTOMATIZACIÓN DE CRIPTOMONEDAS'],
+    right: ['TRADING INTELIGENTE', 'GESTIÓN DE CARTERAS', 'DISEÑO MODERNO'],
+    img: CRIPTOMIX,
+    alt: 'Criptomix plataforma de criptomonedas',
+    url: 'https://criptomix.com' // Agrega la URL aquí
+  },
+  {
+    title: 'ENCUÉNTRAME',
+    left: ['COLLARES INTELIGENTES', 'QR PARA MASCOTAS', 'NOTIFICACIONES EN TIEMPO REAL'],
+    right: ['GEOLOCALIZACIÓN', 'MAPA DE ESCANEOS', 'REUNIÓN FAMILIAR ASEGURADA'],
+    img: CARDQR,
+    alt: 'Encuéntrame QR para mascotas',
+    url: 'https://encuentrameqr.com' // Agrega la URL aquí
+  },
+  {
+    title: 'PORTFOLIO COMMUNITY MANAGER',
+    left: ['ESTRATEGIA DIGITAL', 'PRESENTACIÓN VISUAL', 'GESTIÓN DE MARCA'],
+    right: ['REDES SOCIALES', 'CASOS DE ÉXITO', 'OPTIMIZACIÓN DE CONTENIDO'],
+    img: CM,
+    alt: 'Portfolio community manager',
+    url: 'https://community-manager-lola.vercel.app/' // Agrega la URL aquí
+  },
+  {
+    title: 'AGENCIA DE MARKETING SHALOM',
+    left: ['BRANDING', 'CAMPAÑAS DIGITALES', 'MARKETING DE CONTENIDO'],
+    right: ['FOTOGRAFÍA Y DISEÑO', 'GESTIÓN DE REDES', 'WEB & LANDING PAGES'],
+    img: SHALOM,
+    alt: 'Agencia Shalom marketing',
+    url: 'https://shalom-psi.vercel.app/' // Agrega la URL aquí
+  },
+  {
+    title: 'MENÚ AR PARA RESTAURANTES',
+    left: ['REALIDAD AUMENTADA', 'INTERACCIÓN 3D', 'NAVEGACIÓN INMERSIVA'],
+    right: ['EXPERIENCIA DEL USUARIO', 'MENÚ INTERACTIVO', 'INNOVACIÓN GASTRONÓMICA'],
+    img: MENUAR,
+    alt: 'Menú de restaurantes con AR',
+    url: 'https://menu-ar-restaurant.vercel.app/' // Agrega la URL aquí
+  },
+
   
   
 ];
@@ -50,6 +56,12 @@ const projects = [
 const Jobs = () => {
   const [active, setActive] = useState(null);
   const itemsRef = useRef([]);
+
+  const handleImageClick = (url) => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   // Animación de entrada stagger
   useEffect(() => {
@@ -145,7 +157,8 @@ const Jobs = () => {
             data-index={idx}
             key={proj.title}
             ref={el => (itemsRef.current[idx] = el)}
-            onClick={() => setActive(active === idx ? null : idx)}
+            onMouseEnter={() => setActive(idx)}
+            onMouseLeave={() => setActive(null)}
           >
             <div className="project-title-container">
               <div className="hover-indicator left"></div>
@@ -161,10 +174,18 @@ const Jobs = () => {
                 ))}
               </div>
               <div className="project-image">
-                <div className="image-wrapper">
-                  <img src={proj.img} alt={proj.alt} style={{ clipPath: 'inset(100% 0 0 0)' }} />
-                </div>
+              <div className="image-wrapper">
+                <img 
+                  src={proj.img} 
+                  alt={proj.alt} 
+                  style={{ 
+                    clipPath: 'inset(100% 0 0 0)', 
+                    cursor: proj.url ? 'pointer' : 'default' 
+                  }}
+                  onClick={() => handleImageClick(proj.url)}
+                />
               </div>
+            </div>
               <div className="project-details right">
                 {proj.right.map((txt, i) => (
                   <div className="line-wrapper" key={i} style={{ overflow: 'hidden', marginBottom: '0.25rem' }}>
