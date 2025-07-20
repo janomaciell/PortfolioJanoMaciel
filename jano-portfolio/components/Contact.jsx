@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import '../styles/Contact.css';
 
 const Contact = () => {
@@ -9,6 +10,9 @@ const Contact = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -16,10 +20,40 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Aquí manejarías el envío del formulario
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Reemplaza estos valores con tus credenciales de EmailJS
+      const serviceID = 'service_7a52up1';
+      const templateID = 'template_afshotn';
+      const publicKey = 'njKaLQvBNkUWF0QtR';
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        project_type: formData.project,
+        message: formData.message,
+        to_name: 'Jano Maciel',
+      };
+
+      await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      
+      setSubmitStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        project: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error al enviar el email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -34,12 +68,15 @@ const Contact = () => {
         
         <div className="contact-header">
           <h1 className="contact-title">
-            <span className="title-line">LET'S</span>
-            <span className="title-line highlight">CREATE</span>
-            <span className="title-line">TOGETHER</span>
+            <span className="title-line">VAMOS A</span>
+            <span className="title-line highlight">CREAR</span>
+            <span className="title-line">JUNTOS</span>
           </h1>
           <p className="contact-subtitle">
-            ¿Tienes un proyecto en mente? Hagamos algo increíble juntos.
+            ¿Tenés un proyecto en mente? 
+          </p>
+          <p className="contact-subtitle">
+          Llevemos tu proyecto al siguiente nivel.
           </p>
         </div>
       </div>
@@ -51,16 +88,20 @@ const Contact = () => {
               <h3 className="info-title">CONVERSEMOS</h3>
               <p className="info-text">
                 Cada proyecto es único y merece una solución personalizada. 
-                Cuéntanos tu visión y la haremos realidad.
+                Contame tu visión y la haremos realidad.
               </p>
             </div>
 
             <div className="info-block">
               <h3 className="info-title">SERVICIOS</h3>
               <ul className="services-list">
-                <li>Desarrollo Web</li>
+                <li>Desarrollo Web Full Stack</li>
                 <li>Diseño UI/UX</li>
-                <li>Branding</li>
+                <li>Branding e Identidad Visual</li>
+                <li>Sistemas de Gestión</li>
+                <li>Automatizaciones</li>
+                <li>E-commerce</li>
+                <li>Marketing Digital</li>
                 <li>Consultoría Digital</li>
               </ul>
             </div>
@@ -68,16 +109,32 @@ const Contact = () => {
             <div className="contact-details">
               <div className="detail-item">
                 <span className="detail-label">EMAIL:</span>
-                <span className="detail-value">hello@tuempresa.com</span>
+                <span className="detail-value">janomaciel1@gmail.com</span>
               </div>
               <div className="detail-item">
                 <span className="detail-label">TELÉFONO:</span>
-                <span className="detail-value">+1 (555) 123-4567</span>
+                <span className="detail-value">+54 (2267) 40-5599</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">UBICACIÓN:</span>
+                <span className="detail-value">Argentina</span>
               </div>
             </div>
           </div>
 
           <div className="contact-form-wrapper">
+            {submitStatus === 'success' && (
+              <div className="status-message success">
+                ¡Mensaje enviado exitosamente! Te responderé pronto.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="status-message error">
+                Hubo un error al enviar el mensaje. Intentá nuevamente.
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-group">
                 <label htmlFor="name" className="form-label">NOMBRE *</label>
@@ -88,6 +145,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className="form-input"
+                  placeholder="Tu nombre completo"
                   required
                 />
               </div>
@@ -101,6 +159,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="form-input"
+                  placeholder="tu@email.com"
                   required
                 />
               </div>
@@ -114,10 +173,14 @@ const Contact = () => {
                   onChange={handleChange}
                   className="form-select"
                 >
-                  <option value="">Selecciona una opción</option>
+                  <option value="">Seleccioná una opción</option>
                   <option value="web">Desarrollo Web</option>
+                  <option value="ecommerce">E-commerce</option>
                   <option value="design">Diseño UI/UX</option>
                   <option value="branding">Branding</option>
+                  <option value="sistema">Sistema de Gestión</option>
+                  <option value="automatizacion">Automatizaciones</option>
+                  <option value="marketing">Marketing Digital</option>
                   <option value="consulting">Consultoría</option>
                   <option value="other">Otro</option>
                 </select>
@@ -132,13 +195,19 @@ const Contact = () => {
                   onChange={handleChange}
                   className="form-textarea"
                   rows="6"
-                  placeholder="Cuéntanos sobre tu proyecto..."
+                  placeholder="Contame sobre tu proyecto, objetivos, timeline, presupuesto aproximado..."
                   required
                 />
               </div>
 
-              <button type="submit" className="submit-btn">
-                <span className="btn-text">ENVIAR MENSAJE</span>
+              <button 
+                type="submit" 
+                className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                disabled={isSubmitting}
+              >
+                <span className="btn-text">
+                  {isSubmitting ? 'ENVIANDO...' : 'ENVIAR MENSAJE'}
+                </span>
                 <span className="btn-arrow">→</span>
               </button>
             </form>
@@ -153,7 +222,7 @@ const Contact = () => {
           <div className="deco-element deco-3"></div>
         </div>
         <p className="footer-text">
-          READY TO START? LET'S MAKE SOMETHING AMAZING TOGETHER!
+          ¿LISTO PARA EMPEZAR? ¡IMPULSÁ TU VISIÓN HACIA EL ÉXITO!
         </p>
       </div>
     </div>

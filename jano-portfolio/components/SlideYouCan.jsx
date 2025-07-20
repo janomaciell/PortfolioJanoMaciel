@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/SlideYouCan.css';
+import ScrollingText from './ScrollingText';
 
 const SlideYouCan = () => {
   const [config, setConfig] = useState({
@@ -30,7 +31,13 @@ const SlideYouCan = () => {
 
   return (
     <div className="slide-you-can">
-      {/* Control Panel */}
+      <ScrollingText
+        text="IMPULSA TU MARCA"
+        style={{
+          border: '2px solid #000',
+          borderRadius: '6px'
+        }}
+      />
 
       {/* Main Content */}
       <header className="content fluid" style={{ '--count': 10 }}>
@@ -56,9 +63,12 @@ const SlideYouCan = () => {
       
       <main>
         <section>
-          <p className="fluid" style={{ fontSize: '30px' }}>
-            Combino programación avanzada con branding y diseño estratégico.<br />
-            <a>Potenciá tu marca y tu tecnología conmigo</a>.
+          <p className="slide-description">
+            <span>
+              Combino programación avanzada con branding y diseño estratégico.
+            </span>
+            <br />
+            <a className="cta-link">Potenciá tu marca y tu tecnología conmigo</a>.
           </p>
         </section>
       </main>

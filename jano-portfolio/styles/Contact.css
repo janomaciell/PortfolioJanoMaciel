@@ -184,6 +184,12 @@
   position: relative;
   padding-left: 25px;
   font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.services-list li:hover {
+  color: #8b5cf6;
+  transform: translateX(5px);
 }
 
 .services-list li::before {
@@ -192,6 +198,11 @@
   left: 0;
   color: #8b5cf6;
   font-weight: 700;
+  transition: transform 0.3s ease;
+}
+
+.services-list li:hover::before {
+  transform: scale(1.2);
 }
 
 .contact-details {
@@ -207,8 +218,8 @@
 .detail-label {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #8b5cf6;
-  min-width: 100px;
+  color: #000000;
+  min-width: 120px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -294,6 +305,22 @@
   overflow: hidden;
 }
 
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn.submitting {
+  background: #7c3aed;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
 .submit-btn::before {
   content: '';
   position: absolute;
@@ -322,6 +349,39 @@
 
 .submit-btn:hover .btn-arrow {
   transform: translateX(5px);
+}
+
+/* Status Messages */
+.status-message {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+}
+
+.status-message.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.status-message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Footer Section */
@@ -427,5 +487,9 @@
   .submit-btn {
     width: 100%;
     justify-content: center;
+  }
+  
+  .detail-label {
+    min-width: 100px;
   }
 }

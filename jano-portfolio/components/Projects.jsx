@@ -1,16 +1,85 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import '../styles/Projects.css'; // Asegúrate de tener los estilos
+import { SplitText } from 'gsap/SplitText';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+import '../styles/Projects.css';
+import SplitWords from './ScrollingText'; // Ajusta la ruta si es necesario
+
+
+
+// Registrar plugins de GSAP
+gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
 const compositions = [
-  { className: 'composition--3', title: 'Composition III' },
-  { className: 'composition--c', title: 'Composition C' },
-  { className: 'composition--2', title: 'Composition II' },
+  { className: 'composition--3', title: 'Arte III' },
+  { className: 'composition--c', title: 'Arte C' },
+  { className: 'composition--2', title: 'Arte II' },
 ];
 
 const Proyects = () => {
   const frameRefs = useRef([]);
+  const scrambleTextRef = useRef(null);
+  const toggleBtnRef = useRef(null);
+  const h1Ref = useRef(null);
+  const quotesRef = useRef([]);
+  const [isDecoded, setIsDecoded] = useState(false);
 
+  const message = 'Cuida tus datos.';
+  const scrambleChars = 'upperAndLowerCase';
+
+  // Función para obtener posición aleatoria
+  const getRandomPosition = () => {
+    const x = Math.random() * (window.innerWidth - 200);
+    const y = Math.random() * (window.innerHeight - 100);
+    return { x, y };
+  };
+
+  // Función para animar quotes con scramble
+  const scrambleQuote = (quote, text) => {
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+    tl.call(() => {
+      const { x, y } = getRandomPosition();
+      gsap.set(quote, { x, y });
+    })
+      .to(quote, {
+        delay: Math.random() * 5,
+        duration: 1,
+        opacity: 1,
+        scrambleText: { text, chars: scrambleChars, revealDelay: 0.5, speed: 1 },
+        ease: 'power2.out',
+      })
+      .to(quote, {
+        delay: 0.5,
+        duration: 1,
+        scrambleText: { text: '', chars: scrambleChars },
+        opacity: 0,
+        ease: 'power2.in',
+      });
+  };
+
+  // Función para toggle del scramble
+  const toggleScramble = () => {
+    const text = isDecoded ? '*&@#$#@#$@*&$(@#^)' : message;
+    const duration = isDecoded ? 1 : 1.5;
+    const speed = isDecoded ? 0.3 : 1;
+
+    gsap.to(scrambleTextRef.current, {
+      duration,
+      scrambleText: {
+        text,
+        chars: scrambleChars,
+        revealDelay: isDecoded ? 0 : 0.5,
+        speed,
+      },
+    });
+
+    if (toggleBtnRef.current) {
+      toggleBtnRef.current.textContent = isDecoded ? 'Encriptar' : 'Desencriptar';
+    }
+    setIsDecoded(!isDecoded);
+  };
+
+  // Efectos de mouse para las composiciones Mondrian
   const handleMouseMove = (index, e) => {
     const frame = frameRefs.current[index];
     const rect = frame.getBoundingClientRect();
@@ -63,8 +132,102 @@ const Proyects = () => {
     });
   };
 
+  // useEffect para inicializar las animaciones
+  useEffect(() => {
+    // Inicializar scramble text
+    if (scrambleTextRef.current) {
+      gsap.set(scrambleTextRef.current, {
+        scrambleText: {
+          text: '*&@#$#@#$@*&$(@#^)',
+          chars: scrambleChars,
+          speed: 0.3,
+        },
+      });
+    }
+
+    // Inicializar quotes
+    quotesRef.current.forEach((quote) => {
+      if (quote) {
+        gsap.set(quote, {
+          position: 'absolute',
+          opacity: 0,
+          whiteSpace: 'nowrap',
+        });
+        scrambleQuote(quote, quote.textContent || '');
+      }
+    });
+
+    // Animar H1
+    if (h1Ref.current) {
+      const split = SplitText.create(h1Ref.current, { type: 'words, lines' });
+      gsap.from(split.words, {
+        x: 'random([-1000, 1000])',
+        y: 'random([-1000, 1000])',
+        opacity: 0,
+        ease: 'expo.inOut',
+        duration: 1.25,
+      });
+    }
+  }, []);
+
+  const quotes = [
+    'La imaginación es poder',
+    'El código es arte',
+    'La creatividad requiere valor',
+    'El diseño es inteligencia visible',
+    'Cada píxel tiene un propósito',
+    'La simplicidad es la máxima sofisticación',
+    'La imaginación es poder',
+    'El código es arte',
+    'La creatividad requiere valor',
+    'El diseño es inteligencia visible',
+    'Cada píxel tiene un propósito'
+  ];
+
   return (
     <>
+    <SplitWords text="SEGURIDAD" />
+      {/* Nueva sección con scramble text */}
+      <section className="scramble-section">
+        <a 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="scramble-logo"
+        >
+
+
+        </a>
+        <div className="scramble-content">
+          <h1 ref={h1Ref} className="scramble-headline">
+            Seguridad Plena en tus datos
+          </h1>
+          <div className="scramble-box">
+            <span ref={scrambleTextRef} className="scramble-text">
+              *&@#$#@#$@*&$(@#^)
+            </span>
+            <button
+              ref={toggleBtnRef}
+              type="button"
+              className="scramble-btn"
+              onClick={toggleScramble}
+            >
+              {isDecoded ? 'Encriptar' : 'Desencriptar'}
+            </button>
+          </div>
+        </div>
+        {quotes.map((quote, index) => (
+          <div
+            key={index}
+            className="quote"
+            ref={el => quotesRef.current[index] = el}
+          >
+            {quote}
+          </div>
+        ))}
+      </section>
+      <SplitWords text="ARTE" />
+
+
       {/* Bloque de composiciones Mondrian */}
       <div className="containers">
         <div className="compositions">
@@ -94,7 +257,7 @@ const Proyects = () => {
           ))}
         </div>
       </div>
-
+      <SplitWords text="TECNOLOGIA" />
       {/* Bloque MacBook Pro */}
       <div className="tilt-wrapper">
         <div className="hero">

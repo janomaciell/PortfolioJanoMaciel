@@ -22,7 +22,6 @@ const AnimateText = () => {
           type: 'words',
           aria: 'hidden',
         });
-
         gsap.from(split.words, {
           opacity: 0,
           duration: 2,
