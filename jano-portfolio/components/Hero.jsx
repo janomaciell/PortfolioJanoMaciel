@@ -37,8 +37,8 @@ const Hero = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Obtener el estado actual con mejor configuración
-    const state = Flip.getState(".letter, .for, .gsap", {
+    // Obtener el estado actual con mejor configuración - incluir letras dentro de jano-letters
+    const state = Flip.getState(".jano-letters .letter, .for, .gsap", {
       props: "color,backgroundColor",
       simple: true
     });
@@ -95,13 +95,11 @@ const Hero = () => {
 
     if (!container || !heroContent) return;
 
-    // Configurar animación inicial con mejor performance
-    gsap.set(".letter, .for, .gsap", {
+    // Configurar animación inicial con mejor performance - incluir letras dentro de jano-letters
+    gsap.set(".jano-letters .letter, .for, .gsap", {
       willChange: "transform, opacity",
-
       backfaceVisibility: "hidden",
       position: "relative"
-
     });
 
     // Iniciar la secuencia de animaciones
@@ -161,8 +159,8 @@ const Hero = () => {
       cleanupAnimations();
       scrollTrigger.kill();
       
-      // Limpiar propiedades CSS
-      gsap.set(".letter, .for, .gsap", {
+      // Limpiar propiedades CSS - incluir letras dentro de jano-letters
+      gsap.set(".jano-letters .letter, .for, .gsap", {
         clearProps: "all"
       });
     };
@@ -172,10 +170,12 @@ const Hero = () => {
     <section className="hero-section">
       <div className="hero-animation">
         <div className="container final" ref={containerRef}>
-          <div className="letter F">J</div>
-          <div className="letter l">A</div>
-          <div className="letter i">N</div>
-          <div className="letter p">O</div>
+          <div className="jano-letters">
+            <div className="letter F">J</div>
+            <div className="letter l">A</div>
+            <div className="letter i">N</div>
+            <div className="letter p">O</div>
+          </div>
           <div className="for">DIGITAL</div>
           <div className="gsap">DEVELOPER</div>
         </div>
