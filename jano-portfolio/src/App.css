@@ -1,12 +1,16 @@
 :root {
-  --color-blue: #3b82f6;
-  --color-pink: #ec4899;
-  --color-ui-blue-lt: #60a5fa;
-  --color-ui-blue: #2563eb;
-  --color-surface-white: #ffffff;
-  --color-dark: #1a1a1a;
-  --color-gray: #6b7280;
+  --color-beige: #ffffff;         /* más profundo, menos lavado */
+  --color-beige-dark: #cfcba0;    /* más intenso, menos grisáceo */
+  --color-beige-light: #f0efd6;   /* más claro pero con más presencia */
+  --color-black: #000000;         /* se mantiene igual */
+  --color-gray-dark: #1f1f1f;     /* más profundo, menos neutro */
+  --color-gray-medium: #3a3a3a;   /* más contraste que el anterior */
+  --color-gray-light: #707070;    /* más oscuro para mejor legibilidad */
+  --color-white: #ffffff;         /* se mantiene igual */
+  --color-dark: #0f0f0f;          /* casi negro, más contundente */
+  --color-gray: #4b5563;          /* más saturado que #6b7280 */
 }
+
 
 * {
   box-sizing: border-box;

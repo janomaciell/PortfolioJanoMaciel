@@ -61,7 +61,7 @@
 
 .for, .gsap {
   font-size: 5vmax;
-  color: var(--color-surface-white);
+  color: var(--color-beige);
   display: none;
   box-sizing: border-box;
 }
@@ -112,24 +112,28 @@
 }
 
 .F {
-  background: var(--color-blue);
+  background: var(--color-beige);
+  color: var(--color-black);
 }
 
 .l {
-  background: var(--color-pink);
+  background: var(--color-gray-dark);
+  color: var(--color-beige);
 }
 
 .i {
-  background: var(--color-ui-blue-lt);
+  background: var(--color-beige-dark);
+  color: var(--color-black);
 }
 
 .p {
-  background: var(--color-ui-blue);
+  background: var(--color-gray-medium);
+  color: var(--color-beige);
 }
 
 .container.plain .letter {
   background: transparent;
-  color: var(--color-surface-white);
+  color: var(--color-beige);
   padding: 0;
 }
 
