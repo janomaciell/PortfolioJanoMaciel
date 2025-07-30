@@ -202,9 +202,58 @@ li {
     var(--dimmed) calc(var(--start) + 0.5lh)
   );
   background-attachment: fixed;
-  color: #0000;
+  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  /* Fallback para dispositivos que no soportan background-clip */
+  -webkit-text-fill-color: transparent;
+  /* Asegurar que el texto sea visible en todos los dispositivos */
+  text-shadow: none;
+}
+
+/* Fallback específico para dispositivos iOS que tienen problemas con background-clip */
+@supports not (background-clip: text) {
+  li {
+    color: var(--dimmed);
+    background: none;
+    -webkit-text-fill-color: initial;
+  }
+}
+
+/* Fallback adicional para Safari en iOS */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @supports (-webkit-background-clip: text) {
+    li {
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  
+  @supports not (-webkit-background-clip: text) {
+    li {
+      color: var(--dimmed);
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
+  }
+}
+
+/* Fallback específico para iOS con tema oscuro */
+@media (prefers-color-scheme: dark) {
+  @supports not (background-clip: text) {
+    li {
+      color: #ffffff;
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
+  }
+}
+
+/* Fallback para dispositivos que no soportan color-mix */
+@supports not (color-mix(in oklch, canvasText, #0000 80%)) {
+  li {
+    --dimmed: #666666;
+  }
 }
 
 header section:first-of-type {
@@ -463,17 +512,25 @@ footer {
   .slide-description {
     font-size: 1.05rem;
     padding: 0 0.5rem;
-    margin: 1.2rem auto;
+    margin: 2rem auto;
     max-width: 98vw;
     line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 40vh;
   }
   .slide-description span {
     margin-bottom: 0.7rem;
     font-size: 1em;
+    text-align: center;
   }
   .slide-description .cta-link {
     font-size: 1em;
     margin-top: 0.3rem;
+    text-align: center;
   }
 }
 
@@ -497,19 +554,23 @@ footer {
 @media (max-width: 600px) {
   main, main section {
     height: auto !important;
-    place-items: initial !important;
-    justify-content: initial !important;
-    align-items: initial !important;
+    display: flex !important;
+    place-items: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh !important;
   }
 }
 
 @media (max-width: 600px) {
   [data-animate='true'] main section p,
   main section p {
-
+    position: relative !important;
+    top: auto !important;
     left: auto !important;
     translate: none !important;
     animation: none !important;
+    margin: 0 auto !important;
   }
 }
 

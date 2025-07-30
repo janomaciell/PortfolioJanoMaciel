@@ -112,36 +112,25 @@ const Jobs = () => {
     });
   }, []);
 
-  // Hover indicators animación
+  // Hover indicators animación - cambiar a click
   useEffect(() => {
     itemsRef.current.forEach((item, idx) => {
       const titleContainer = item.querySelector('.project-title-container');
       const leftIndicator = item.querySelector('.hover-indicator.left');
       const rightIndicator = item.querySelector('.hover-indicator.right');
-      const enter = () => {
-        if (active !== idx) {
-          gsap.killTweensOf([leftIndicator, rightIndicator]);
-          gsap.set([leftIndicator, rightIndicator], { clearProps: 'all', opacity: 0, width: '0px', height: '8px', x: i => (i === 0 ? -10 : 10) });
-          gsap.to(leftIndicator, { opacity: 1, x: 0, width: '12px', duration: 0.15, ease: 'power2.out' });
-          gsap.to(leftIndicator, { width: '8px', duration: 0.1, delay: 0.15, ease: 'power2.in' });
-          gsap.to(rightIndicator, { opacity: 1, x: 0, width: '12px', duration: 0.15, delay: 0.06, ease: 'power2.out' });
-          gsap.to(rightIndicator, { width: '8px', duration: 0.1, delay: 0.21, ease: 'power2.in' });
+      
+      const handleClick = () => {
+        if (active === idx) {
+          setActive(null); // Cerrar si ya está abierto
+        } else {
+          setActive(idx); // Abrir si está cerrado
         }
       };
-      const leave = () => {
-        if (active !== idx) {
-          gsap.killTweensOf([leftIndicator, rightIndicator]);
-          gsap.to(leftIndicator, { width: '12px', duration: 0.1, ease: 'power1.in' });
-          gsap.to(leftIndicator, { width: '0px', x: -10, opacity: 0, duration: 0.15, delay: 0.1, ease: 'power2.in' });
-          gsap.to(rightIndicator, { width: '12px', duration: 0.1, delay: 0.03, ease: 'power1.in' });
-          gsap.to(rightIndicator, { width: '0px', x: 10, opacity: 0, duration: 0.15, delay: 0.13, ease: 'power2.in' });
-        }
-      };
-      titleContainer.addEventListener('mouseenter', enter);
-      titleContainer.addEventListener('mouseleave', leave);
+      
+      titleContainer.addEventListener('click', handleClick);
+      
       return () => {
-        titleContainer.removeEventListener('mouseenter', enter);
-        titleContainer.removeEventListener('mouseleave', leave);
+        titleContainer.removeEventListener('click', handleClick);
       };
     });
   }, [active]);
@@ -157,8 +146,6 @@ const Jobs = () => {
             data-index={idx}
             key={proj.title}
             ref={el => (itemsRef.current[idx] = el)}
-            onMouseEnter={() => setActive(idx)}
-            onMouseLeave={() => setActive(null)}
           >
             <div className="project-title-container">
               <div className="hover-indicator left"></div>
