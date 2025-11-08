@@ -6,6 +6,7 @@ import SHALOM from '../img/SHALOM.png';
 import CM from '../img/CM.png';
 import CARDQR from '../img/CARD-QR.png';
 import MENUAR from '../img/MENUAR.png';
+import VIRA from '../img/VIRA.png';
 
 const projects = [
   {
@@ -38,7 +39,7 @@ const projects = [
     right: ['FOTOGRAFÍA Y DISEÑO', 'GESTIÓN DE REDES', 'WEB & LANDING PAGES'],
     img: SHALOM,
     alt: 'Agencia Shalom marketing',
-    url: 'https://shalom-psi.vercel.app/' // Agrega la URL aquí
+    url: 'https://shalom-omega.vercel.app/' // Agrega la URL aquí
   },
   {
     title: 'MENÚ AR PARA RESTAURANTES',
@@ -48,8 +49,14 @@ const projects = [
     alt: 'Menú de restaurantes con AR',
     url: 'https://menu-ar-restaurant.vercel.app/' // Agrega la URL aquí
   },
-
-  
+  {
+    title: 'VIRA CONSTRUCTORA',
+    left: ['CONSTRUCCIÓN', 'RENOVACIÓN', 'REMODELACIÓN'],
+    right: ['DISEÑO', 'CONSTRUCCIÓN', 'RENOVACIÓN'],
+    img: VIRA,
+    alt: 'Vira Constructora',
+    url: 'https://www.viraconstructora.com/' // Agrega la URL aquí
+  },
   
 ];
 
